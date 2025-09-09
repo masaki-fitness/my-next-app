@@ -1,102 +1,88 @@
 import Image from "next/image";
+import { ProgressCircle } from '../components/ProgressCircle';
+import { EarningsDisplay } from '../components/EarningsDisplay';
+import { AppCard } from '../components/AppCard';
+import { Profile } from '../components/Profile';
+import { BlogSection } from '../components/BlogSection';
+
+// ダミーデータ
+const completedApps = 5;
+const currentEarnings = 100000;
+const earningsHistory = [
+  { month: '2025/4', amount: 20000 },
+  { month: '2025/5', amount: 35000 },
+  { month: '2025/6', amount: 50000 },
+  { month: '2025/7', amount: 70000 },
+  { month: '2025/8', amount: 85000 },
+  { month: '2025/9', amount: 100000 },
+];
+
+const apps = [
+  {
+    icon: '/app-icons/app1.png',
+    name: 'アプリ1',
+    description: 'アプリ1の説明文がここに入ります。',
+    link: '#'
+  },
+  // 他のアプリを追加
+];
+
+const blogPosts = [
+  {
+    title: '開発5個目完了！',
+    date: '2025年9月10日',
+    content: '5個目のアプリが完成しました。今回の開発で学んだことを共有します...'
+  },
+  // 他の投稿を追加
+];
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="min-h-screen bg-gray-50">
+      <main className="max-w-6xl mx-auto px-4 py-12 space-y-16">
+        <h1 className="text-4xl font-bold text-center text-gray-800">
+          100個のアプリを自己開発して月収１００万円への挑戦します
+        </h1>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+        {/* 進捗セクション */}
+        <section id="progress" className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="bg-white p-8 rounded-lg shadow-lg">
+            <h2 className="text-2xl font-bold mb-6">アプリ開発進捗</h2>
+            <div className="flex justify-center">
+              <ProgressCircle completed={completedApps} total={100} />
+            </div>
+          </div>
+          <div className="bg-white p-8 rounded-lg shadow-lg">
+            <h2 className="text-2xl font-bold mb-6">収益状況</h2>
+            <EarningsDisplay
+              currentEarnings={currentEarnings}
+              earningsHistory={earningsHistory}
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
+          </div>
+        </section>
+
+        {/* アプリリスト */}
+        <section id="apps" className="bg-white p-8 rounded-lg shadow-lg">
+          <h2 className="text-2xl font-bold mb-6">開発したアプリ</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {apps.map((app, index) => (
+              <AppCard key={index} {...app} />
+            ))}
+          </div>
+        </section>
+
+        {/* プロフィール */}
+        <section id="profile">
+          <Profile />
+        </section>        {/* ブログセクション */}
+        <section id="blog">
+          <BlogSection posts={blogPosts} />
+        </section>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+      <footer className="bg-gray-800 text-white py-8">
+        <div className="max-w-6xl mx-auto px-4 text-center">
+          <p>© 2025 100個のアプリ開発チャレンジ</p>
+        </div>
       </footer>
     </div>
   );
