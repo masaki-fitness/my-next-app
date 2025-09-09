@@ -3,37 +3,37 @@
 import { motion } from 'framer-motion';
 import { theme } from '../theme/colors';
 
-type ProgressCircleProps = {
+interface ProgressCircleProps {
   completed: number;
   total: number;
-};
+}
 
-export const ProgressCircle = ({ completed, total }: ProgressCircleProps) => {
+const ProgressCircle: React.FC<ProgressCircleProps> = ({ completed, total }) => {
   const percentage = (completed / total) * 100;
-  const circumference = 2 * Math.PI * 60; // radius = 60
+  const circumference = 2 * Math.PI * 80; // radius = 80
 
   return (
     <motion.div
       initial={{ scale: 0 }}
       animate={{ scale: 1 }}
       transition={{ duration: 0.5, type: "spring" }}
-      className="relative w-48 h-48"
+      className="relative w-64 h-64"
     >
       <svg className="w-full h-full transform -rotate-90">
         <circle
-          cx="96"
-          cy="96"
-          r="60"
+          cx="128"
+          cy="128"
+          r="80"
           stroke={theme.colors.accent}
-          strokeWidth="12"
+          strokeWidth="16"
           fill="transparent"
         />
         <motion.circle
-          cx="96"
-          cy="96"
-          r="60"
+          cx="128"
+          cy="128"
+          r="80"
           stroke={theme.colors.primary}
-          strokeWidth="12"
+          strokeWidth="16"
           fill="transparent"
           strokeDasharray={circumference}
           initial={{ strokeDashoffset: circumference }}
@@ -42,15 +42,22 @@ export const ProgressCircle = ({ completed, total }: ProgressCircleProps) => {
         />
       </svg>
       <div className="absolute inset-0 flex items-center justify-center">
-        <motion.span
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
-          className="text-3xl font-bold text-gray-800"
+          className="flex flex-col items-center space-y-2"
         >
-          {completed}/{total}
-        </motion.span>
+          <span className="text-5xl font-bold text-gray-800">
+            {completed}
+          </span>
+          <span className="text-xl text-gray-600">
+            / {total} アプリ
+          </span>
+        </motion.div>
       </div>
     </motion.div>
   );
 };
+
+export default ProgressCircle;

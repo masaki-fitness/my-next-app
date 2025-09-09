@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ProgressCircle } from '../components/ProgressCircle';
+import ProgressCircle from '../components/ProgressCircle';
 import { EarningsDisplay } from '../components/EarningsDisplay';
 import { AppCard } from '../components/AppCard';
 import { Profile } from '../components/Profile';
@@ -41,7 +41,7 @@ export default function Home() {
     <div className="min-h-screen bg-gray-50">
       <main className="max-w-6xl mx-auto px-4 py-12 space-y-16">
         <h1 className="text-4xl font-bold text-center text-gray-800">
-          100個のアプリを自己開発して月収１００万円への挑戦します
+          100個のアプリ開発で月収100万円に挑戦
         </h1>
 
         {/* 進捗セクション */}
